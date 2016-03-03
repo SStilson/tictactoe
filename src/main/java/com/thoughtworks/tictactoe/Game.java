@@ -17,17 +17,29 @@ public class Game {
         this.printStream = printStream;
     }
 
-    public void playerOneMove() throws IOException {
+    public void playGame() throws IOException {
+        Integer i = 0;
+        while(i < 8) {
+            playerMove("X");
+            playerMove("O");
+            i+=2;
+        }
+        playerMove("X");
+        board.draw();
+        printStream.println("Game is a draw.");
+    }
+
+    public void playerMove(String playerSymbol) throws IOException {
         List<String> spaces = board.showSpacesOfBoard();
         Boolean validMove = false;
         while (!validMove) {
             printStream.println("Please enter your move: ");
-            String playerOneInput = reader.readLine();
-            String spaceToMoveInto = spaces.get(Integer.parseInt(playerOneInput)-1);
+            String playerInput = reader.readLine();
+            String spaceToMoveInto = spaces.get(Integer.parseInt(playerInput)-1);
             if (!spaceToMoveInto.equals("X") && !spaceToMoveInto.equals("O")) {
                 for (int i = 0; i < spaces.size(); i++) {
-                    if (spaces.get(i).equals(playerOneInput)) {
-                        spaces.set(i, "X");
+                    if (spaces.get(i).equals(playerInput)) {
+                        spaces.set(i, playerSymbol);
                     }
                 }
                 board.setSpacesOfBoard(spaces);
@@ -40,26 +52,4 @@ public class Game {
         board.draw();
     }
 
-    public void playerTwoMove() throws IOException {
-        List<String> spaces = board.showSpacesOfBoard();
-        Boolean validMove = false;
-        while (!validMove) {
-            printStream.println("Please enter your move: ");
-            String playerTwoInput = reader.readLine();
-            String spaceToMoveInto = spaces.get(Integer.parseInt(playerTwoInput)-1);
-            if (!spaceToMoveInto.equals("X") && !spaceToMoveInto.equals("O")) {
-                for (int i = 0; i < spaces.size(); i++) {
-                    if (spaces.get(i).equals(playerTwoInput)) {
-                        spaces.set(i, "O");
-                    }
-                }
-                board.setSpacesOfBoard(spaces);
-                validMove = true;
-            } else {
-                printStream.println("Location already taken!");
-            }
-        }
-
-        board.draw();
-    }
 }
