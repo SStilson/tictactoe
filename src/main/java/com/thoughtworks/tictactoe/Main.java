@@ -14,8 +14,9 @@ public class Main {
 
         board.draw();
 
-        Game game = new Game(board, reader);
+        Game game = new Game(board, reader, printStream);
         game.playerOneMove();
+        game.playerTwoMove();
 
 
     }

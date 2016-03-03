@@ -7,41 +7,21 @@ import java.util.List;
 
 public class Board {
 
-    private final List<String> spaces;
+    private List<String> spaces;
     private PrintStream printStream;
-//    private ArrayList<ArrayList<Integer>> gameBoard;
 
     public Board(PrintStream printStream) {
         this.printStream = printStream;
-
-/*        ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> rowOne = new ArrayList<Integer>();
-        rowOne.add(1);
-        rowOne.add(2);
-        rowOne.add(3);
-        board.add(rowOne);
-
-        ArrayList<Integer> rowTwo = new ArrayList<Integer>();
-        rowOne.add(4);
-        rowOne.add(5);
-        rowOne.add(6);
-        board.add(rowTwo);
-
-        ArrayList<Integer> rowThree = new ArrayList<Integer>();
-        rowOne.add(7);
-        rowOne.add(8);
-        rowOne.add(9);
-        board.add(rowThree);
-
-        this.gameBoard = board;*/
-
-        List<String> spaces = new ArrayList<String>(Arrays.asList("1","2","3","4","5","6","7","8","9"));
-        this.spaces = spaces;
+        this.spaces = new ArrayList<String>(Arrays.asList("1","2","3","4","5","6","7","8","9"));
 
     }
 
     public List<String> showSpacesOfBoard() {
         return spaces;
+    }
+
+    public void setSpacesOfBoard(List<String> spaces) {
+        this.spaces = spaces;
     }
 
     public void draw() {

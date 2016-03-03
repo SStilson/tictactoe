@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -27,14 +28,12 @@ public class GameTest {
         printStream = mock(PrintStream.class);
         reader = mock(BufferedReader.class);
         board = new Board(printStream);
-        game = new Game(board, reader);
+        game = new Game(board, reader, printStream);
     }
 
     @Test
     public void gameShouldRespondToPlayerOneMove() throws IOException {
-
         when(reader.readLine()).thenReturn("1");
-
 
         game.playerOneMove();
 
@@ -44,16 +43,23 @@ public class GameTest {
 
     @Test
     public void gameShouldRespondToPlayerTwoMove() throws IOException {
-        PrintStream printStream = mock(PrintStream.class);
-        BufferedReader reader = mock(BufferedReader.class);
         when(reader.readLine()).thenReturn("1");
-        Board board = new Board(printStream);
-        Game game = new Game(board, reader);
 
         game.playerTwoMove();
 
         assertThat(board.showSpacesOfBoard().get(0), is("O"));
 
+    }
+
+    @Test
+    public void shouldNotAllowPlayersToMoveIntoTakenSpace() throws IOException {
+        Board takenBoard = mock(Board.class);
+        when(takenBoard.showSpacesOfBoard()).thenReturn(new ArrayList<String>(Arrays.asList("X","O","X","O","X","O","X","O","X")));
+        when(reader.readLine()).thenReturn("1");
+
+        game.playerOneMove();
+
+        verify(printStream).println(contains("Location already taken!"));
     }
 
 }
