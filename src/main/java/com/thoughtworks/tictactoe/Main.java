@@ -2,7 +2,6 @@ package com.thoughtworks.tictactoe;
 
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class Main {
 
@@ -11,12 +10,10 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         Board board = new Board(printStream);
-
         board.draw();
 
         Game game = new Game(board, reader, printStream);
         game.playGame();
-
 
     }
 }

@@ -22,6 +22,7 @@ public class GameTest {
     private Board board;
     private BufferedReader reader;
     private PrintStream printStream;
+    private Board mockBoard;
 
     @Before
     public void setUp() {
@@ -29,6 +30,7 @@ public class GameTest {
         reader = mock(BufferedReader.class);
         board = new Board(printStream);
         game = new Game(board, reader, printStream);
+        mockBoard = mock(Board.class);
     }
 
     @Test
@@ -51,10 +53,9 @@ public class GameTest {
 
     }
 
-/*    @Test
+    @Test
     public void shouldNotAllowPlayersToMoveIntoTakenSpace() throws IOException {
-        Board takenBoard = mock(Board.class);
-        when(takenBoard.showSpacesOfBoard()).thenReturn(new ArrayList<String>(Arrays.asList("X","O","X","O","X","O","X","O","X")));
+        when(mockBoard.showSpacesOfBoard()).thenReturn(new ArrayList<String>(Arrays.asList("X","O","X","O","X","O","X","O","X")));
         when(reader.readLine()).thenReturn("1");
 
         game.playerMove("X");
@@ -63,14 +64,23 @@ public class GameTest {
     }
 
     @Test
-    public void shouldFillBoardWhenPlayingGame() throws IOException {
-        Board takenBoard = mock(Board.class);
-        when(takenBoard.showSpacesOfBoard()).thenReturn(new ArrayList<String>(Arrays.asList("1","O","X","O","X","O","X","O","X")));
+    public void shouldFillBoardWhenThereAreNoWinners() throws IOException {
+        when(mockBoard.showSpacesOfBoard()).thenReturn(new ArrayList<String>(Arrays.asList("1","O","X","O","X","O","X","O","X")));
         when(reader.readLine()).thenReturn("1");
 
         game.playGame();
 
         verify(printStream).println(contains("Game is a draw."));
-    }*/
+    }
+
+    @Test
+    public void gameShouldEndWhenOnePlayerHasThreeInARow() throws IOException {
+        when(mockBoard.showSpacesOfBoard()).thenReturn(new ArrayList<String>(Arrays.asList("1","X","X","O","X","O","X","O","X")));
+        when(reader.readLine()).thenReturn("1");
+
+        game.playGame();
+
+        verify(printStream).println(contains("Player X is the winner!"));
+    }
 
 }
