@@ -13,7 +13,6 @@ public class Board {
     public Board(PrintStream printStream) {
         this.printStream = printStream;
         this.spaces = new ArrayList<String>(Arrays.asList("1","2","3","4","5","6","7","8","9"));
-
     }
 
     public List<String> showSpacesOfBoard() {
@@ -26,5 +25,13 @@ public class Board {
 
     public void draw() {
         printStream.println(spaces.get(0) + "|" + spaces.get(1) + "|" + spaces.get(2) + "\n_____\n" + spaces.get(3) + "|" + spaces.get(4) + "|" + spaces.get(5) + "\n_____\n"+ spaces.get(6) + "|" + spaces.get(7) + "|" + spaces.get(8));
+    }
+
+    public Boolean checkWinConditions() {
+        for (int i = 0; i < spaces.size()-3; i+=3) {
+            if(spaces.get(i).equals(spaces.get(i+1)) && spaces.get(i).equals(spaces.get(i+2))) {
+                return true;
+            }
+        } return false;
     }
 }
