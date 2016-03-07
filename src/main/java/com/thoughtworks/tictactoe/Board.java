@@ -7,29 +7,30 @@ import java.util.List;
 
 public class Board {
 
-    private List<String> spaces;
+    private List<String> locations;
     private PrintStream printStream;
 
     public Board(PrintStream printStream) {
         this.printStream = printStream;
-        this.spaces = new ArrayList<String>(Arrays.asList("1","2","3","4","5","6","7","8","9"));
+        //TODO: Inject locations as a dependency
+        this.locations = new ArrayList<String>(Arrays.asList("1","2","3","4","5","6","7","8","9"));
     }
 
-    public List<String> showSpacesOfBoard() {
-        return spaces;
+    public List<String> showLocationsOnBoard() {
+        return locations;
     }
 
-    public void setSpacesOfBoard(List<String> spaces) {
-        this.spaces = spaces;
+    public void setLocationsOnBoard(List<String> spaces) {
+        this.locations = spaces;
     }
 
     public void draw() {
-        printStream.println(spaces.get(0) + "|" + spaces.get(1) + "|" + spaces.get(2) + "\n_____\n" + spaces.get(3) + "|" + spaces.get(4) + "|" + spaces.get(5) + "\n_____\n"+ spaces.get(6) + "|" + spaces.get(7) + "|" + spaces.get(8));
+        printStream.println(locations.get(0) + "|" + locations.get(1) + "|" + locations.get(2) + "\n_____\n" + locations.get(3) + "|" + locations.get(4) + "|" + locations.get(5) + "\n_____\n"+ locations.get(6) + "|" + locations.get(7) + "|" + locations.get(8));
     }
 
     public Boolean checkWinConditions() {
-        for (int i = 0; i < spaces.size()-3; i+=3) {
-            if(spaces.get(i).equals(spaces.get(i+1)) && spaces.get(i).equals(spaces.get(i+2))) {
+        for (int i = 0; i < locations.size()-3; i+=3) {
+            if(locations.get(i).equals(locations.get(i+1)) && locations.get(i).equals(locations.get(i+2))) {
                 return true;
             }
         } return false;

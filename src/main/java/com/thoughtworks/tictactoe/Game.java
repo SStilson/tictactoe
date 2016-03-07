@@ -10,15 +10,22 @@ public class Game {
     private Board board;
     private BufferedReader reader;
     private PrintStream printStream;
+    private Player player1;
+    private Player player2;
 
-    public Game(Board board, BufferedReader reader, PrintStream printStream) {
+    public Game(Board board, BufferedReader reader, PrintStream printStream, Player player1, Player player2) {
         this.board = board;
         this.reader = reader;
         this.printStream = printStream;
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
     public void playGame() throws IOException {
-        Integer i = 0;
+        board.draw();
+        player1.move();
+        player2.move();
+/*        Integer i = 0;
         while(i < 8) {
             playerMove("X");
             if(board.checkWinConditions()) {
@@ -40,30 +47,10 @@ public class Game {
                 board.draw();
                 printStream.println("Game is a draw.");
             }
-        }
+        }*/
     }
 
-    public void playerMove(String playerSymbol) throws IOException {
-        List<String> spaces = board.showSpacesOfBoard();
-        Boolean validMove = false;
-        while (!validMove) {
-            printStream.println("Please enter your move: ");
-            String playerInput = reader.readLine();
-            String spaceToMoveInto = spaces.get(Integer.parseInt(playerInput)-1);
-            if (!spaceToMoveInto.equals("X") && !spaceToMoveInto.equals("O")) {
-                for (int i = 0; i < spaces.size(); i++) {
-                    if (spaces.get(i).equals(playerInput)) {
-                        spaces.set(i, playerSymbol);
-                    }
-                }
-                board.setSpacesOfBoard(spaces);
-                validMove = true;
-            } else {
-                printStream.println("Location already taken!");
-            }
-        }
-        board.draw();
-    }
+
 
 
 
